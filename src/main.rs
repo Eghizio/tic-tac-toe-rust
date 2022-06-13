@@ -1,7 +1,7 @@
 use std::fmt;
 use std::io;
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 enum Player {
     None,
     X,
@@ -64,14 +64,21 @@ fn main() {
         };
 
         match game.winner {
-            Player::None => continue, // TODO: Draw
-            Player::X => break,
-            Player::O => break,
+            Player::None => {
+                if are_all_fields_taken(game.board) {
+                    println!("\n{}", game);
+                    println!("It's a draw!");
+                    break;
+                }
+                continue;
+            },
+            _ => {
+                println!("\n{}", game);
+                println!("Winner: {}", game.winner);
+                break;
+            }
         }
     }
-
-    println!("\n{}", game);
-    println!("Winner: {}", game.winner);
 }
 
 fn input_board_field() -> usize {
@@ -126,4 +133,8 @@ fn check_winner(game: &mut Game) -> &Game {
     }
 
     return game;
+}
+
+fn are_all_fields_taken(board: [Player; 9]) -> bool {
+    return !board.iter().any(|&field| field == Player::None);
 }

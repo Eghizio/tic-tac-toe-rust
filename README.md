@@ -7,7 +7,7 @@ My first steps with Rust programming language 😅
 The code is not the best but I've written it without any further problems and it was my first time using Enums and Arrays in Rust. 🤓
 
 ### TODO:
-- Draw
+- ✅ Draw
 - Displaying field number
 
 ## Setup
